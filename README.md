@@ -104,7 +104,7 @@ Your support helps keep this project maintained and enables me to create more us
 ---
 
 ## Version
-3.0.0
+1.0.0
 
 ## License
 MIT
