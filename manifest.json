@@ -1,0 +1,12 @@
+{
+  "display_name": "BF's OOC Injection",
+  "loading_order": 100,
+  "requires": [],
+  "optional": [],
+  "js": "index.js",
+  "css": "style.css",
+  "author": "BF",
+  "version": "2.0.0",
+  "homePage": "",
+  "auto_update": false
+}

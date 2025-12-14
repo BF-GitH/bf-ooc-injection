@@ -1,0 +1,140 @@
+<div id="bf_ooc_settings" class="bf-ooc-extension-block">
+    <div class="inline-drawer">
+        <div class="inline-drawer-toggle inline-drawer-header">
+            <b>BF's OOC Injection</b>
+            <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
+        </div>
+        <div class="inline-drawer-content">
+
+            <!-- Main Toggle -->
+            <div class="flex-container alignitemscenter">
+                <label for="bf_ooc_enabled" class="checkbox_label" title="Enable or disable OOC injection">
+                    <input id="bf_ooc_enabled" type="checkbox" />
+                    <span>Enable OOC Injection</span>
+                </label>
+            </div>
+
+            <div class="flex-container alignitemscenter" style="margin-top: 5px;">
+                <label for="bf_ooc_show_toast" class="checkbox_label" title="Show popup with roll results">
+                    <input id="bf_ooc_show_toast" type="checkbox" />
+                    <span>Show Roll Results Popup</span>
+                </label>
+            </div>
+
+            <small style="color: #888; display: block; margin-bottom: 10px;">
+                Injects hidden instructions into your messages that the LLM sees but don't appear in chat history.
+            </small>
+
+            <hr>
+
+            <!-- System Prompt -->
+            <h4>🎯 System Prompt</h4>
+
+            <div class="bf-ooc-system-section">
+                <div class="flex-container alignitemscenter" style="margin-bottom: 8px;">
+                    <label for="bf_ooc_system_enabled" class="checkbox_label" title="Enable system prompt">
+                        <input id="bf_ooc_system_enabled" type="checkbox" />
+                        <span>Enable System Prompt</span>
+                    </label>
+                </div>
+
+                <small style="color: #888; display: block; margin-bottom: 10px;">
+                    When enabled, your OOC categories and general message will be injected into the selected system prompts below.
+                </small>
+
+                <div class="bf-ooc-trigger-settings" style="margin-bottom: 10px;">
+                    <label class="checkbox_label" title="Always inject">
+                        <input type="radio" name="bf_system_trigger" class="bf-ooc-system-trigger" value="always" />
+                        <span>Always</span>
+                    </label>
+                    <label class="checkbox_label" title="Inject by chance %">
+                        <input type="radio" name="bf_system_trigger" class="bf-ooc-system-trigger" value="chance" />
+                        <span>Chance %</span>
+                        <input type="number" id="bf_ooc_system_chance" class="text_pole" value="100" min="0" max="100" style="width: 70px;" />
+                    </label>
+                    <label class="checkbox_label" title="Inject every X messages">
+                        <input type="radio" name="bf_system_trigger" class="bf-ooc-system-trigger" value="interval" />
+                        <span>Every X msg</span>
+                        <input type="number" id="bf_ooc_system_interval" class="text_pole" value="1" min="1" style="width: 70px;" />
+                    </label>
+                </div>
+
+                <div id="bf_system_targets_container" style="display: none; margin-top: 10px;">
+                    <label><small>Inject into these system prompts:</small></label>
+                    <div id="bf_system_targets_list" style="max-height: 200px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 5px; margin-top: 5px;">
+                        <!-- Targets will be loaded here -->
+                    </div>
+                    <button id="bf_refresh_system_targets" class="menu_button" style="width: 100%; margin-top: 5px;">
+                        <i class="fa-solid fa-refresh"></i> Refresh List
+                    </button>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- General Message -->
+            <h4>📌 General Message</h4>
+
+            <div class="bf-ooc-general-section">
+                <div class="flex-container alignitemscenter" style="margin-bottom: 8px;">
+                    <label for="bf_ooc_general_enabled" class="checkbox_label" title="Enable general message">
+                        <input id="bf_ooc_general_enabled" type="checkbox" />
+                        <span>Enable General Message</span>
+                    </label>
+                </div>
+
+                <textarea id="bf_ooc_general_text" class="text_pole" rows="2" placeholder="Always-on instruction..."></textarea>
+                <small style="color: #888; display: block; margin-top: 5px;">
+                    This text is always included when enabled (no trigger conditions).
+                </small>
+            </div>
+
+            <hr>
+
+            <!-- Categories -->
+            <h4>🎲 Random Categories</h4>
+
+            <div id="bf_ooc_categories_container">
+                <!-- Categories rendered by JavaScript -->
+            </div>
+
+            <div style="display: flex; gap: 5px; margin-top: 10px;">
+                <button id="bf_ooc_add_category" class="menu_button" style="flex: 1;">
+                    <i class="fa-solid fa-plus"></i> Add Category
+                </button>
+                <button id="bf_ooc_load_defaults" class="menu_button" style="flex: 1;" title="Load default roleplay categories">
+                    <i class="fa-solid fa-download"></i> Load Defaults
+                </button>
+            </div>
+
+            <hr>
+
+            <!-- Formatting -->
+            <h4>⚙️ Formatting</h4>
+
+            <label for="bf_ooc_injection_mode" title="Where to inject OOC">
+                <small>Injection position</small>
+            </label>
+            <select id="bf_ooc_injection_mode" class="text_pole">
+                <option value="append">After user message</option>
+                <option value="prepend">Before user message</option>
+            </select>
+
+            <div style="display: flex; gap: 10px;">
+                <div style="flex: 1;">
+                    <label for="bf_ooc_prefix" title="Optional prefix">
+                        <small>Inner prefix (optional)</small>
+                    </label>
+                    <input id="bf_ooc_prefix" class="text_pole" type="text" placeholder="" />
+                </div>
+                <div style="flex: 1;">
+                    <label for="bf_ooc_suffix" title="Optional suffix">
+                        <small>Inner suffix (optional)</small>
+                    </label>
+                    <input id="bf_ooc_suffix" class="text_pole" type="text" placeholder="" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

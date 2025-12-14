@@ -1,0 +1,72 @@
+/* BF's OOC Injection - Styles */
+
+.bf-ooc-extension-block {
+    margin-bottom: 15px;
+}
+
+.bf-ooc-category {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.bf-ooc-category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.bf-ooc-cat-name {
+    flex: 1;
+    margin-left: 5px;
+}
+
+.bf-ooc-trigger-settings {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.bf-ooc-trigger-settings label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.bf-ooc-options-list {
+    margin-bottom: 10px;
+}
+
+.bf-ooc-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.bf-ooc-option-num {
+    min-width: 25px;
+    font-weight: bold;
+}
+
+.bf-ooc-option-text {
+    flex: 1;
+}
+
+.bf-ooc-option-delete,
+.bf-ooc-cat-delete {
+    min-width: 35px;
+}
+
+.bf-ooc-add-option {
+    width: 100%;
+}
+
+.bf-ooc-system-section,
+.bf-ooc-general-section {
+    margin-bottom: 10px;
+}
