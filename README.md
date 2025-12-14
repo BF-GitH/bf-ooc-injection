@@ -84,6 +84,16 @@ Click "Load Defaults" to get all 5 categories instantly.
 
 ---
 
+## Support the Project
+
+If you find this extension helpful and want to support continued development, consider buying me a coffee! ☕
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/bf_gith)
+
+Your support helps keep this project maintained and enables me to create more useful tools for the SillyTavern community. Every contribution is greatly appreciated!
+
+---
+
 ## Version
 3.0.0
 
