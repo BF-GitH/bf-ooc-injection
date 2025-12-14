@@ -46,9 +46,18 @@ Click "Load Defaults" to get all 5 categories instantly.
 
 ## Installation
 
-1. Place `bf-ooc-injection` folder in: `SillyTavern/public/scripts/extensions/third-party/`
-2. Restart SillyTavern
-3. Enable in Extensions settings
+### Easy Method (Recommended)
+1. Open SillyTavern
+2. Go to **Extensions** → **Install Extension**
+3. Paste this URL: `https://github.com/BF-GitH/bf-ooc-injection`
+4. Click **Install**
+5. Enable the extension in Extensions settings
+
+### Manual Method
+1. Download and extract the repository
+2. Place `bf-ooc-injection` folder in: `SillyTavern/public/scripts/extensions/third-party/`
+3. Restart SillyTavern
+4. Enable in Extensions settings
 
 ---
 
