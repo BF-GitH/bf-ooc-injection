@@ -21,14 +21,86 @@
                 </label>
             </div>
 
-            <small style="color: #888; display: block; margin-bottom: 10px;">
+            <div id="bf_ooc_toast_settings" style="margin-top: 8px; margin-left: 20px; padding: 8px; border-left: 2px solid rgba(255,255,255,0.1);">
+                <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 5px;">
+                    <label for="bf_ooc_toast_duration" style="flex: 0 0 auto;">
+                        <small>Duration (seconds):</small>
+                    </label>
+                    <input id="bf_ooc_toast_duration" class="text_pole" type="number" min="0" step="0.5" placeholder="3" style="width: 100px;" title="0 = stays until closed" />
+                    <small style="color: #888;">0 = stays until closed</small>
+                </div>
+
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <label for="bf_ooc_toast_display" style="flex: 0 0 auto;">
+                        <small>Show result as:</small>
+                    </label>
+                    <select id="bf_ooc_toast_display" class="text_pole" style="width: 150px;" title="Number shows position (1/6), Tag shows the tag value (40)">
+                        <option value="number">Number</option>
+                        <option value="tag">Tag</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex-container alignitemscenter" style="margin-top: 5px;">
+                <label for="bf_ooc_reroll_on_swipe" class="checkbox_label" title="Reroll categories when swiping/regenerating (without sending new message)">
+                    <input id="bf_ooc_reroll_on_swipe" type="checkbox" />
+                    <span>Reroll on swipe</span>
+                </label>
+            </div>
+
+            <small style="color: #888; display: block; margin-bottom: 10px; margin-top: 8px;">
                 Injects hidden instructions into your messages that the LLM sees but don't appear in chat history.
             </small>
+
+            <div id="bf_ooc_settings_content">
+
+            <!-- Presets -->
+            <div class="bf-ooc-presets-section" style="margin-bottom: 15px; padding: 10px; border: 1px solid rgba(255,255,255,0.1); border-radius: 5px;">
+                <h4 style="margin-top: 0;">Presets</h4>
+
+                <label><small>Current preset (auto-loads on change):</small></label>
+                <select id="bf_ooc_preset_select" class="text_pole" style="width: 100%; margin-bottom: 8px;">
+                    <option value="Default">Default</option>
+                </select>
+
+                <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                    <button id="bf_ooc_preset_reload" class="menu_button" title="Reload: Refresh current preset settings">
+                        <i class="fa-solid fa-refresh"></i>
+                    </button>
+                    <button id="bf_ooc_preset_new" class="menu_button" title="New: Create fresh preset (clears all settings)">
+                        <i class="fa-solid fa-file"></i>
+                    </button>
+                    <button id="bf_ooc_preset_saveas" class="menu_button" title="Save As: Save current settings as new preset">
+                        <i class="fa-solid fa-save"></i>
+                    </button>
+                    <button id="bf_ooc_preset_delete" class="menu_button" title="Delete: Remove selected preset">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                    <button id="bf_ooc_preset_export" class="menu_button" title="Export: Download all presets as JSON file">
+                        <i class="fa-solid fa-download"></i>
+                    </button>
+                    <button id="bf_ooc_preset_import" class="menu_button" title="Import: Load presets from clipboard (JSON)">
+                        <i class="fa-solid fa-upload"></i>
+                    </button>
+                </div>
+
+                <div id="bf_ooc_preset_save_box" style="display: none; margin-top: 8px;">
+                    <div style="display: flex; gap: 5px;">
+                        <input id="bf_ooc_preset_name" class="text_pole" type="text" placeholder="New preset name..." style="flex: 1;" />
+                        <button id="bf_ooc_preset_save_confirm" class="menu_button" title="Save preset">
+                            <i class="fa-solid fa-check"></i> Save
+                        </button>
+                        <button id="bf_ooc_preset_save_cancel" class="menu_button" title="Cancel">
+                            <i class="fa-solid fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             <hr>
 
             <!-- System Prompt -->
-            <h4>🎯 System Prompt</h4>
+            <h4>System Prompt</h4>
 
             <div class="bf-ooc-system-section">
                 <div class="flex-container alignitemscenter" style="margin-bottom: 8px;">
@@ -38,6 +110,7 @@
                     </label>
                 </div>
 
+                <div id="bf_ooc_system_content">
                 <small style="color: #888; display: block; margin-bottom: 10px;">
                     When enabled, your OOC categories and general message will be injected into the selected system prompts below.
                 </small>
@@ -59,7 +132,7 @@
                     </label>
                 </div>
 
-                <div id="bf_system_targets_container" style="display: none; margin-top: 10px;">
+                <div id="bf_system_targets_container" style="margin-top: 10px;">
                     <label><small>Inject into these system prompts:</small></label>
                     <div id="bf_system_targets_list" style="max-height: 200px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 5px; margin-top: 5px;">
                         <!-- Targets will be loaded here -->
@@ -68,12 +141,13 @@
                         <i class="fa-solid fa-refresh"></i> Refresh List
                     </button>
                 </div>
+                </div>
             </div>
 
             <hr>
 
             <!-- General Message -->
-            <h4>📌 General Message</h4>
+            <h4>General Message</h4>
 
             <div class="bf-ooc-general-section">
                 <div class="flex-container alignitemscenter" style="margin-bottom: 8px;">
@@ -83,34 +157,47 @@
                     </label>
                 </div>
 
+                <div id="bf_ooc_general_content">
                 <textarea id="bf_ooc_general_text" class="text_pole" rows="2" placeholder="Always-on instruction..."></textarea>
                 <small style="color: #888; display: block; margin-top: 5px;">
                     This text is always included when enabled (no trigger conditions).
                 </small>
+                </div>
             </div>
 
             <hr>
 
             <!-- Categories -->
-            <h4>🎲 Random Categories</h4>
+            <h4>Random Categories</h4>
 
-            <div id="bf_ooc_categories_container">
-                <!-- Categories rendered by JavaScript -->
-            </div>
+            <div class="bf-ooc-categories-section">
+                <div class="flex-container alignitemscenter" style="margin-bottom: 8px;">
+                    <label for="bf_ooc_categories_enabled" class="checkbox_label" title="Enable random categories">
+                        <input id="bf_ooc_categories_enabled" type="checkbox" />
+                        <span>Enable Random Categories</span>
+                    </label>
+                </div>
 
-            <div style="display: flex; gap: 5px; margin-top: 10px;">
-                <button id="bf_ooc_add_category" class="menu_button" style="flex: 1;">
-                    <i class="fa-solid fa-plus"></i> Add Category
-                </button>
-                <button id="bf_ooc_load_defaults" class="menu_button" style="flex: 1;" title="Load default roleplay categories">
-                    <i class="fa-solid fa-download"></i> Load Defaults
-                </button>
+                <div id="bf_ooc_categories_content">
+                <div id="bf_ooc_categories_container">
+                    <!-- Categories rendered by JavaScript -->
+                </div>
+
+                <div style="display: flex; gap: 5px; margin-top: 10px;">
+                    <button id="bf_ooc_add_category" class="menu_button" style="flex: 1;">
+                        <i class="fa-solid fa-plus"></i> Add Category
+                    </button>
+                    <button id="bf_ooc_load_defaults" class="menu_button" style="flex: 1;" title="Load default roleplay categories">
+                        <i class="fa-solid fa-download"></i> Load Defaults
+                    </button>
+                </div>
+                </div>
             </div>
 
             <hr>
 
             <!-- Formatting -->
-            <h4>⚙️ Formatting</h4>
+            <h4>Formatting</h4>
 
             <label for="bf_ooc_injection_mode" title="Where to inject OOC">
                 <small>Injection position</small>
@@ -120,7 +207,7 @@
                 <option value="prepend">Before user message</option>
             </select>
 
-            <div style="display: flex; gap: 10px;">
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                 <div style="flex: 1;">
                     <label for="bf_ooc_prefix" title="Optional prefix">
                         <small>Inner prefix (optional)</small>
@@ -133,6 +220,50 @@
                     </label>
                     <input id="bf_ooc_suffix" class="text_pole" type="text" placeholder="" />
                 </div>
+            </div>
+
+            <h5 style="margin-top: 15px; margin-bottom: 8px;">Custom Labels</h5>
+
+            <label for="bf_ooc_main_wrapper">
+                <small>Main wrapper text</small>
+            </label>
+            <input id="bf_ooc_main_wrapper" class="text_pole" type="text" placeholder="BF OOC Injection:" />
+            <small style="color: #888; display: block; margin-bottom: 8px;">
+                The main header for the OOC injection block
+            </small>
+
+            <label for="bf_ooc_system_label">
+                <small>System prompt section label</small>
+            </label>
+            <input id="bf_ooc_system_label" class="text_pole" type="text" placeholder="Systemprompt Reinject:" />
+            <small style="color: #888; display: block; margin-bottom: 8px;">
+                Label for the system prompt section
+            </small>
+
+            <label for="bf_ooc_additional_label">
+                <small>Additional prompt section label</small>
+            </label>
+            <input id="bf_ooc_additional_label" class="text_pole" type="text" placeholder="Additional Prompt Injection:" />
+            <small style="color: #888; display: block; margin-bottom: 8px;">
+                Label for categories and general message section
+            </small>
+
+            <label for="bf_ooc_general_label">
+                <small>General message prefix</small>
+            </label>
+            <input id="bf_ooc_general_label" class="text_pole" type="text" placeholder="General:" />
+            <small style="color: #888; display: block; margin-bottom: 8px;">
+                Prefix for the general message
+            </small>
+
+            <label for="bf_ooc_category_format">
+                <small>Category format template</small>
+            </label>
+            <input id="bf_ooc_category_format" class="text_pole" type="text" placeholder="{category}: {option}" />
+            <small style="color: #888; display: block; margin-bottom: 8px;">
+                Format for category output. Use {category} and {option} as placeholders.
+            </small>
+
             </div>
 
         </div>

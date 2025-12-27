@@ -28,6 +28,15 @@ export function initInjector() {
         console.log('[BFOOC] Generation started - reset state');
     });
 
+    // Handle swipes (regenerate without new user message)
+    eventSource.on(eventTypes.MESSAGE_SWIPED, () => {
+        const settings = getSettings();
+        if (settings && settings.rerollOnSwipe) {
+            cachedOOC = null;
+            console.log('[BFOOC] Message swiped - cache cleared for reroll');
+        }
+    });
+
     // For chat completion APIs (OpenAI, Claude, etc.)
     eventSource.on(eventTypes.CHAT_COMPLETION_PROMPT_READY, (data) => {
         handlePromptReady(data);
@@ -35,8 +44,8 @@ export function initInjector() {
 
     // For text completion APIs (AI Horde, KoboldAI, etc.)
     // Use GENERATE_AFTER_DATA which passes the full context we can modify
-    eventSource.on(eventTypes.GENERATE_AFTER_DATA, (data) => {
-        handleTextCompletionPrompt(data);
+    eventSource.on(eventTypes.GENERATE_AFTER_DATA, (data, dryRun) => {
+        handleTextCompletionPrompt(data, dryRun);
     });
 
     console.log('[BFOOC] Injector initialized');
@@ -245,7 +254,7 @@ function injectIntoLastUserMessage(messages, ooc, settings) {
     }
 }
 
-function handleTextCompletionPrompt(data) {
+function handleTextCompletionPrompt(data, dryRun) {
     try {
         console.log('[BFOOC] Text completion prompt event fired');
 
@@ -257,6 +266,11 @@ function handleTextCompletionPrompt(data) {
         const settings = getSettings();
         if (!settings || !settings.enabled) {
             console.log('[BFOOC] Extension disabled, skipping');
+            return;
+        }
+
+        if (dryRun) {
+            console.log('[BFOOC] Dry run detected, skipping');
             return;
         }
 
