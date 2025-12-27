@@ -6,6 +6,7 @@ const OOC_MARKER = 'BF OOC Injection:';
 
 let injectionCompleted = false;
 let cachedOOC = null;
+let newUserMessage = false;
 
 export function initInjector() {
     const context = SillyTavern.getContext();
@@ -19,13 +20,26 @@ export function initInjector() {
 
     eventSource.on(eventTypes.USER_MESSAGE_RENDERED, () => {
         incrementMessageCounter();
-        console.log('[BFOOC] User message rendered - counter incremented');
+        newUserMessage = true;
+        console.log('[BFOOC] User message rendered - counter incremented, marked for reroll');
     });
 
     eventSource.on(eventTypes.GENERATION_STARTED, () => {
         injectionCompleted = false;
-        cachedOOC = null;
-        console.log('[BFOOC] Generation started - reset state');
+
+        // Only clear cache if:
+        // 1. A new user message was just sent, OR
+        // 2. It's a swipe and rerollOnSwipe is enabled
+        const settings = getSettings();
+        if (newUserMessage) {
+            cachedOOC = null;
+            console.log('[BFOOC] Generation started - new user message, cache cleared');
+        } else if (!settings || !settings.rerollOnSwipe) {
+            console.log('[BFOOC] Generation started - keeping cached OOC (reroll on swipe disabled)');
+        }
+
+        // Reset the flag after handling
+        newUserMessage = false;
     });
 
     // Handle swipes (regenerate without new user message)
@@ -34,6 +48,8 @@ export function initInjector() {
         if (settings && settings.rerollOnSwipe) {
             cachedOOC = null;
             console.log('[BFOOC] Message swiped - cache cleared for reroll');
+        } else {
+            console.log('[BFOOC] Message swiped - keeping cached OOC (reroll disabled)');
         }
     });
 
